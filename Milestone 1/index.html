@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="it-IT">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boolflix - Milestone 1</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+  <!-- STYLE -->
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+
+    }
+
+    body {}
+
+    /* HEADER */
+    .navbar {
+      width: 100%;
+      height: 9.69vh;
+      background: black;
+      overflow-x: hidden;
+      display: flex;
+      overflow-y: hidden;
+
+
+    }
+
+    nav {
+      width: 1200px;
+      height: 70px;
+      margin: auto;
+      display: flex;
+      flex-direction: row;
+      overflow-x: hidden;
+      overflow-y: hidden;
+
+
+
+    }
+
+    .logo_nav {
+      width: 50%;
+      height: 100%;
+      align-self: flex-start;
+    }
+
+    .logo_nav img {
+      width: 120px;
+      line-height: 70px;
+    }
+
+    .search_input {
+      width: 50%;
+      height: 100%;
+      line-height: 70px;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+
+
+    }
+
+    .search_input input {
+      padding: 5px 10px;
+      border-radius: 50px;
+      outline: none;
+      align-self: center;
+
+    }
+
+    .search_input #search_button {
+      padding: 10px 20px;
+      background: #F01A0A;
+      color: white;
+      outline: none;
+      border: 0.5px solid black;
+      border-radius: 50px;
+      align-self: center;
+      margin-left: 10px;
+      font-weight: bold;
+    }
+
+    /* !HEADER */
+
+    /* MAIN */
+    main {
+      width: 100%;
+      height: 90.3vh;
+      background-color: darkslategrey;
+      overflow-x: hidden;
+      text-align: center;
+
+
+
+    }
+
+    main h3 {
+      color: orange;
+      font-style: oblique;
+    }
+
+
+    .movie {
+      text-align: center;
+      margin: 40px 0;
+      overflow-y: hidden;
+
+    }
+
+    /* !MAIN */
+  </style>
+</head>
+
+<body>
+  <div id="root">
+
+    <!-- HEADER _ NAVBAR -->
+    <header class="navbar">
+      <nav>
+        <div class="logo_nav">
+          <img src="https://logos-world.net/wp-content/uploads/2020/04/Netflix-Logo-700x394.png" alt="">
+        </div>
+        <div class="search_input">
+          <input v-model='keywords' @keyup.enter='getResponse_Results()' type="text" placeholder="Digita un film......">
+          <input @click='getResponse_Results()' type="button" id='search_button' value="Cerca">
+        </div>
+      </nav>
+
+    </header>
+    <!-- HEADER _ NAVBAR -->
+
+
+
+
+    <!-- MAIN _ MOVIES -->
+    <main>
+
+      <ul v-for="film in movies" class="movie">
+        <li>
+          <h3>Titolo Originale:</h3>
+          <h4>{{film.original_title}}</h4>
+        </li>
+        <li>
+          <h3>Titolo:</h3><i>{{film.title}}</i>
+        </li>
+        <li>
+          <h3>Rilasciato il:</h3>{{film.release_date}}
+        </li>
+        <li>
+          <h3>Rating:</h3>
+          <h5>{{film.vote_average}}</h5>
+        </li>
+      </ul>
+
+
+    </main>
+    <!-- !MAIN_MOVIES -->
+
+  </div>
+
+  <script src="./assets/js/main.js"></script>
+</body>
+
+</html>
