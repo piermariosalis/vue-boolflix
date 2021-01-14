@@ -120,6 +120,16 @@
 
     }
 
+    .series {
+      text-align: center;
+      margin: 40px 0;
+      overflow-y: hidden;
+    }
+
+    #language_flags {
+      width: 2px;
+    }
+
     /* !MAIN */
   </style>
 </head>
@@ -148,7 +158,7 @@
     <!-- MAIN _ MOVIES -->
     <main>
 
-      <ul v-for="film in movies" class="movie">
+  <ul v-for="film in movies"  class="movie">
         <li>
           <h3>Titolo Originale:</h3>
           <h4>{{film.original_title}}</h4>
@@ -164,7 +174,91 @@
           <i v-for =  'starEmpty in film.vote_average' class="fas fa-star"></i>
           <i v-for = 'starFull in  5 - film.vote_average' class="far fa-star"></i>
         </li>
+        <li>
+          <img src="" alt="">
+          <h3>Lingua Originale:</h3>
+          <span id='languages_flag'>
+            <img
+              v-if="film.original_language == 'it' "
+              src="./assets/img/countries/it.png"
+              alt=""
+              class="flag"
+            />
+            <img
+              v-else-if="film.original_language == 'ko'"
+              src="./assets/img/countries/ko.png"
+              alt=""
+            />
+            <img
+              v-else-if="film.original_language == 'ja'"
+              src="./assets/img/countries/ja.png"
+              alt=""
+            />
+            <img
+              v-else-if="film.original_language == 'en'"
+              src="./assets/img/countries/en.png"
+              alt=""
+            />
+            <img
+              v-else-if="film.original_language == 'de'"
+              src="./assets/img/countries/de.png"
+              alt=""
+            />
+            <img v-else :src="film.flag" alt="" />
+          </span>
+        </li>
+      </ul> 
+      <ul v-for="tv in series"  class="series">
+        <li>
+          <h3>Titolo Originale:</h3>
+          <h4>{{tv.original_name}}</h4>
+        </li>
+        <li>
+          <h3>Titolo:</h3><i>{{tv.name}}</i>
+        </li>
+        <li>
+          <h3>Rilasciato il:</h3>{{tv.first_air_date}}
+        </li>
+        <li>
+          <h3>Rating:</h3>
+          <i v-for =  'starEmpty in tv.vote_average' class="fas fa-star"></i>
+          <i v-for = 'starFull in  5 - tv.vote_average' class="far fa-star"></i>
+        </li>
+        <li>
+          <img src="" alt="">
+          <h3>Lingua Originale:</h3>
+          <span>
+            <img
+              v-if="tv.original_language == 'it' "
+              src="./assets/img/countries/it.png"
+              alt=""
+              class="flag"
+            />
+            <img
+              v-else-if="tv.original_language == 'ko'"
+              src="./assets/img/countries/ko.png"
+              alt=""
+            />
+            <img
+              v-else-if="tv.original_language == 'ja'"
+              src="./assets/img/countries/ja.png"
+              alt=""
+            />
+            <img
+              v-else-if="tv.original_language == 'en'"
+              src="./assets/img/countries/en.png"
+              alt=""
+            />
+            <img
+              v-else-if="tv.original_language == 'de'"
+              src="./assets/img/countries/de.png"
+              alt=""
+            />
+            <img v-else :src="tv.flag" alt="" />
+          </span>
+        </li>
       </ul>
+
 
 
     </main>
