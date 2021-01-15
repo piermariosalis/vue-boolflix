@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="it-IT">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boolflix - Milestone 4</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script src="https://unpkg.com/vue-star-rating/dist/VueStarRating.umd.min.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+  <!-- STYLE -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+
+    }
+
+    body {}
+
+    /* HEADER */
+    .navbar {
+      width: 100%;
+      height: 70px;
+      background: black;
+      overflow-x: hidden;
+      display: flex;
+      overflow-y: hidden;
+      box-shadow: -15px 0px 10px -15px rgb(165, 15, 15);
+
+
+    }
+
+    nav {
+      width: 1200px;
+      height: 100%;
+      margin: auto;
+      display: flex;
+      flex-direction: row;
+      overflow-x: hidden;
+      overflow-y: hidden;
+      /* box-shadow: 0 12px 20px -6px rgb(255, 255, 255); */
+
+
+
+    }
+
+    .logo_nav {
+      width: 50%;
+      height: 100%;
+      align-self: flex-start;
+    }
+
+    .logo_nav img {
+      width: 120px;
+      line-height: 70px;
+    }
+
+    .logo_nav img:hover {
+      cursor: pointer;
+    }
+
+    .search_input {
+      width: 50%;
+      height: 100%;
+      line-height: 70px;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+
+
+    }
+
+    .search_input input {
+      padding: 5px 50px;
+      border-radius: 50px;
+      outline: none;
+      align-self: center;
+
+    }
+
+    .search_input #search_button {
+      padding: 10px 20px;
+      background: #F01A0A;
+      color: white;
+      outline: none;
+      border: 0.5px solid black;
+      border-radius: 50px;
+      align-self: center;
+      margin-left: 10px;
+      font-weight: bold;
+    }
+
+    /* !HEADER */
+
+    /* MAIN */
+    main {
+      width: 100%;
+      height: calc(100vh - 70px);
+      background-image: url('https://i.redd.it/4fxxbm4opjd31.jpg');
+      overflow-x: hidden;
+      text-align: center;
+
+
+
+    }
+
+    main h3 {
+      color: orange;
+      font-style: oblique;
+    }
+
+
+    .movie {
+      width: 20%;
+      height: 520px;
+      border-radius: 10px;
+      border: 1px solid white;
+      display: inline-block;
+      text-align: center;
+      margin: 0;
+      overflow-y: hidden;
+      background: rgb(2, 0, 36);
+      background: radial-gradient(circle, rgb(0, 0, 0) 0%, rgba(0, 0, 8, 0.465) 96%, rgba(0, 212, 255, 1) 100%);
+      color: white;
+      position: relative;
+    }
+
+
+
+    .series {
+      width: 20%;
+      height: 520px;
+      border-radius: 10px;
+      border: 1px solid white;
+      display: inline-block;
+      text-align: center;
+      margin: 0;
+      overflow-y: hidden;
+      background: rgb(2, 0, 36);
+      background: radial-gradient(circle, rgb(0, 0, 0) 0%, rgba(0, 0, 8, 0.465) 96%, rgba(0, 212, 255, 1) 100%);
+      color: white;
+      position: relative;
+    }
+
+    .card {
+      display: none;
+      list-style: none;
+
+    }
+
+    .cardTv {
+      display: none;
+      list-style: none;
+
+    }
+
+    .movie:hover .card {
+      width: 100%;
+      height: 100%;
+      background: rgb(2, 0, 36);
+      background: radial-gradient(circle, rgb(0, 0, 0) 0%, rgba(0, 0, 8, 0.465) 96%, rgba(0, 212, 255, 1) 100%);
+      position: absolute;
+      top: 0px;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .series:hover .cardTv {
+      width: 100%;
+      height: 100%;
+      background: rgb(2, 0, 36);
+      background: radial-gradient(circle, rgb(0, 0, 0) 0%, rgba(0, 0, 8, 0.465) 96%, rgba(0, 212, 255, 1) 100%);
+      position: absolute;
+      top: 0px;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* !MAIN */
+  </style>
+</head>
+
+<body>
+  <div id="root">
+
+    <!-- HEADER _ NAVBAR -->
+    <header class="navbar">
+      <nav>
+        <div class="logo_nav">
+          <img src="https://logos-world.net/wp-content/uploads/2020/04/Netflix-Logo-700x394.png" alt="">
+        </div>
+        <div class="search_input">
+          <input v-model='keywords' @keyup.enter='getResponse_Results()' type="text" placeholder="Cerca un Film o una Serie...">
+          <input @click='getResponse_Results()' type="button" id='search_button' value="Cerca">
+        </div>
+      </nav>
+
+    </header>
+    <!-- HEADER _ NAVBAR -->
+
+
+    <!-- MAIN _ MOVIES -->
+    <main>
+      <div v-for="film in movies" class="movie">
+        <img v-bind:src="'https://image.tmdb.org/t/p/w342/' + film.poster_path" alt="">
+        <div class='card'>
+
+          <li>
+            <h3>Titolo Originale:</h3>
+            <h4>{{film.original_title}}</h4>
+          </li>
+          <li>
+            <h3>Titolo:</h3><i>{{film.title}}</i>
+          </li>
+          <li>
+            <h3>Rilasciato il:</h3>{{film.release_date}}
+          </li>
+          <li>
+            <h3>Rating:</h3>
+            <i style='color: lightgrey;' v-for='starFull in film.vote_average' class="fas fa-star"></i>
+            <i style='color: yellow;' v-for='starEmpty in  5 - film.vote_average' class="far fa-star"></i>
+          </li>
+          <li>
+            <img src="" alt="">
+            <h3>Lingua Originale:</h3>
+            <span id='languages_flag'>
+              <img v-if="film.original_language == 'it' " src="./assets/img/countries/it.png" alt="" class="flag" />
+              <img v-else-if="film.original_language == 'ko'" src="./assets/img/countries/ko.png" alt="" />
+              <img v-else-if="film.original_language == 'ja'" src="./assets/img/countries/ja.png" alt="" />
+              <img v-else-if="film.original_language == 'en'" src="./assets/img/countries/en.png" alt="" />
+              <img v-else-if="film.original_language == 'de'" src="./assets/img/countries/de.png" alt="" />
+              <img v-else :src="film.flag" alt="" />
+            </span>
+          </li>
+        </div>
+
+      </div>
+      <div v-for="tv in series" class="series">
+        <img v-bind:src="'https://image.tmdb.org/t/p/w500/' + tv.poster_path" alt="">
+        <div class="cardTv">
+          <li>
+            <h3>Titolo Originale:</h3>
+            <h4>{{tv.original_name}}</h4>
+          </li>
+          <li>
+            <h3>Titolo:</h3><i>{{tv.name}}</i>
+          </li>
+          <li>
+            <h3>Rilasciato il:</h3>{{tv.first_air_date}}
+          </li>
+          <li>
+            <h3>Rating:</h3>
+            <i v-for='starEmpty in tv.vote_average' class="fas fa-star"></i>
+            <i v-for='starFull in  5 - tv.vote_average' class="far fa-star"></i>
+          </li>
+          <li>
+            <img src="" alt="">
+            <h3>Lingua Originale:</h3>
+            <span>
+              <img v-if="tv.original_language == 'it' " src="./assets/img/countries/it.png" alt="" class="flag" />
+              <img v-else-if="tv.original_language == 'ko'" src="./assets/img/countries/ko.png" alt="" />
+              <img v-else-if="tv.original_language == 'ja'" src="./assets/img/countries/ja.png" alt="" />
+              <img v-else-if="tv.original_language == 'en'" src="./assets/img/countries/en.png" alt="" />
+              <img v-else-if="tv.original_language == 'de'" src="./assets/img/countries/de.png" alt="" />
+              <img v-else :src="tv.flag" alt="" />
+            </span>
+          </li>
+
+        </div>
+      </div>
+    </main>
+    <!-- !MAIN_MOVIES -->
+  </div>
+
+  <script src="./assets/js/main.js"></script>
+</body>
+
+</html>
