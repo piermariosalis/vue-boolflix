@@ -211,7 +211,7 @@
 
     <!-- MAIN _ MOVIES -->
     <main>
-      <div v-for="film in movies" class="movie" style="background-image: url(); background-size: cover;">
+      <div v-for="film in movies" class="movie" style="overflow-x: hidden;">
         <img v-bind:src="'https://image.tmdb.org/t/p/w342/' + film.poster_path"  @error="imgError">
         <div class='card'>
 
@@ -244,7 +244,7 @@
         </div>
 
       </div>
-      <div v-for="tv in series" class="series">
+      <div v-for="tv in series" class="series" style="overflow-x: hidden;">
         <img v-bind:src="'https://image.tmdb.org/t/p/w342/' + tv.poster_path"  @error="imgError">
         <div class="cardTv">
           <li>
