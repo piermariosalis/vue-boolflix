@@ -211,8 +211,8 @@
 
     <!-- MAIN _ MOVIES -->
     <main>
-      <div v-for="film in movies" class="movie">
-        <img v-bind:src="'https://image.tmdb.org/t/p/w342/' + film.poster_path" alt="">
+      <div v-for="film in movies" class="movie" style="background-image: url(); background-size: cover;">
+        <img v-bind:src="'https://image.tmdb.org/t/p/w342/' + film.poster_path"  @error="imgError">
         <div class='card'>
 
           <li>
@@ -231,7 +231,6 @@
             <i style='color: yellow;' v-for='starEmpty in  5 - film.vote_average' class="far fa-star"></i>
           </li>
           <li>
-            <img src="" alt="">
             <h3>Lingua Originale:</h3>
             <span id='languages_flag'>
               <img v-if="film.original_language == 'it' " src="./assets/img/countries/it.png" alt="" class="flag" />
@@ -246,7 +245,7 @@
 
       </div>
       <div v-for="tv in series" class="series">
-        <img v-bind:src="'https://image.tmdb.org/t/p/w500/' + tv.poster_path" alt="">
+        <img v-bind:src="'https://image.tmdb.org/t/p/w342/' + tv.poster_path"  @error="imgError">
         <div class="cardTv">
           <li>
             <h3>Titolo Originale:</h3>
@@ -264,7 +263,6 @@
             <i v-for='starFull in  5 - tv.vote_average' class="far fa-star"></i>
           </li>
           <li>
-            <img src="" alt="">
             <h3>Lingua Originale:</h3>
             <span>
               <img v-if="tv.original_language == 'it' " src="./assets/img/countries/it.png" alt="" class="flag" />

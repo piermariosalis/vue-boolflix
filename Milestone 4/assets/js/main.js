@@ -45,6 +45,11 @@ let app = new Vue({
         })
     },
 
+      imgError(image) {
+        
+         image.target.src = "./assets/img/noposter.jpg";
+          return true;
+},
     flagCountry(lang) {
       lang.forEach(movies => {
         this.flag = movies.original_language;
